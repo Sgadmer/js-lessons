@@ -164,12 +164,6 @@ function differentKeysObj (obj1, obj2){
     if (isDifferent == 0) {obj3[key] = obj2[key];}
   }
 
-
-  console.log(obj1);
-  console.log(obj2);
-  console.log(obj3);
-  console.log('---------------------------------------------');
-
   return obj3;
 }
 
