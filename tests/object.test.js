@@ -5,6 +5,9 @@ const {
   mergeObject,
   hasKey,
   addToObject,
+  removeKey,
+  sameKeysObj,
+  differentKeysObj,
 } = require('../src/object');
 
 const getRandomObject = () => {
@@ -59,3 +62,72 @@ test('addToObject: Добавить значение в объект', () => {
   expect(nObj).toEqual(obj1);
   expect(nObj).toMatchObject({ [key2]: key2 });
 });
+
+
+/*-------------------------------------НОВЫЕ ЗАДАЧИ--------------------------------------------------*/
+
+for (let i =0; i <6; i++)
+{
+test('removeKey: Удалить ключ из объекта и вернуть новый', () => {
+  const key1 = getRandomString();
+  const key2 = getRandomString();
+  const obj1 = { [key1]: key1, [key2]: key2 };
+  const nObj = removeKey(obj1, key1);
+  expect ((obj1[key1] != nObj[key1]) && (obj1[key2] == nObj[key2])).toBeTruthy();
+});
+}
+
+
+
+for (let i =0; i <6; i++){
+test('sameKeysObj: Создать и вернуть объект, ключи которого есть в обоих объектах', () =>{
+
+  const key1 = getRandomString();
+  const key2 = getRandomString();
+  const key3 = getRandomString();
+  const key4 = getRandomString();
+
+  const obj1 = {[key1]: key1, [key2]: key2, [key3]: key3, [key4]: key4};
+  const obj2 = {[key3]: key3, [key4]: key4 };
+
+  let nObj = sameKeysObj(obj1, obj2);
+
+  let count =0;
+  for (let key in nObj)
+  {
+    count++;
+  }
+
+  expect(count>0).toBeTruthy();
+
+});
+}
+
+
+
+for (let i =0; i <6; i++){
+  test('differentKeysObj: Создать и вернуть объект, ключи которого есть только в одном из объектов (разность)', () =>{
+  
+    const key1 = getRandomString();
+    const key2 = getRandomString();
+    const key3 = getRandomString();
+    const key4 = getRandomString();
+    const key5 = getRandomString();
+  
+    const obj1 = {[key1]: key1, [key2]: key2, [key3]: key3, [key4]: key4,};
+    const obj2 = {[key3]: key3, [key4]: key4, [key5]: key5,};
+  
+    let nObj = differentKeysObj(obj1, obj2);
+  
+    let count =0;
+    
+    for (let key in nObj)
+    {
+      count++;
+    }
+  
+    expect(count>0).toBeTruthy();
+  
+  });
+  
+}

@@ -6,5 +6,6 @@
  * sum(5, 6) - "Итог: 11"
  */
 function sum(a, b) {
+    return `Итог: ${+a + +b}`;
 }
 module.exports = sum;

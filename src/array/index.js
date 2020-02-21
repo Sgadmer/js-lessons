@@ -8,7 +8,8 @@ https://learn.javascript.ru/array-methods
  *  Создать и вернуть новый пустой массив массив
  */
 function createArray() {
-
+  let arr =[];
+  return arr;
 }
 
 /**
@@ -16,6 +17,9 @@ function createArray() {
  */
 function createEmptyArrayWithLength(len) {
 
+  let arr=[];
+  arr.length=len;
+  return arr;
 }
 
 /**
@@ -24,6 +28,8 @@ function createEmptyArrayWithLength(len) {
  */
 function addToArray(arr, newValue) {
 
+  arr.push(newValue);
+  return arr;
 }
 
 /**
@@ -31,16 +37,21 @@ function addToArray(arr, newValue) {
  * Вернуть измененный массив
  */
 function addToStartArray(arr, newValue) {
+  arr.unshift(newValue);
+  return arr;
 
 }
 
 /**
  *  Удалить из массива первый элемент
- *  Венруть массив, где первый элемент это измененный массив,
+ *  Вернуть массив, где первый элемент это измененный массив,
  *  второй - удаленный элемент массива
  */
 function removeFromArrayFirst(arr) {
-
+  let nArr = [];
+  nArr[1] = arr.shift();
+  nArr[0] = arr;
+  return nArr;
 }
 
 /**
@@ -50,7 +61,20 @@ function removeFromArrayFirst(arr) {
  *  пример joinArray(['name', 'age'], "+") => 'name+age'
  */
 function joinArray(array, sep) {
+  
+let stringArr = '';
 
+// stringArr = array.join(sep);  //(удобнее)
+
+  for (let i=0; i<array.length; i++) {
+    
+    if (i < array.length - 1)
+    
+    {stringArr += array[i] + sep;} else {stringArr += array[i];}
+
+  }
+
+  return stringArr;
 }
 
 /**
@@ -60,6 +84,11 @@ function joinArray(array, sep) {
  */
 function copyArray(arr) {
 
+  let arr2 = [];
+
+  arr2 = arr.slice();
+
+  return arr2;
 }
 
 /**
@@ -70,6 +99,10 @@ function copyArray(arr) {
  */
 function mergeArray(arr, arr2) {
 
+  let arr3 = [];
+  arr3 = arr.concat(arr2);
+
+  return arr3;
 }
 
 /**
@@ -79,6 +112,9 @@ function mergeArray(arr, arr2) {
  */
 function filterArray(arr) {
 
+  let nArr = arr.filter(item => item > 2);
+
+  return nArr;
 }
 
 /**
@@ -94,6 +130,18 @@ function filterArray(arr) {
  */
 function filterArrayCustom(arr, fn) {
 
+  let nArr = [];
+  let i=0;
+
+  for(let item of arr) {
+
+    if (fn(item)) {
+
+      nArr[i++] = item;
+
+    }
+  }
+  return nArr;
 }
 
 /**
@@ -101,6 +149,13 @@ function filterArrayCustom(arr, fn) {
  * Вернуть новый массив.
  */
 function reverseArray(arr) {
+
+  let nArr=[];
+
+  nArr = arr.concat();
+  nArr.reverse();
+
+  return nArr;
 
 }
 
@@ -112,6 +167,12 @@ function reverseArray(arr) {
  */
 function sortArray(arr) {
 
+  let nArr=[];
+
+  nArr = arr.concat();
+  nArr.sort((person1, person2) => person2.age - person1.age);
+
+  return nArr;
 }
 
 /**
@@ -128,7 +189,22 @@ function sortArray(arr) {
  */
 function spliceArray(arr) {
 
+  let nArr=[];
+  let i = arr.length - 3,
+      u = arr.length;
+
+      for (let a=0; a < 3; a++) {
+        
+        nArr[a] = arr.slice(i,u);
+        i-=3;
+        u-=3;
+
+      }
+
+
+  return nArr;
 }
+
 
 /**
  * Перевести объект в массив
@@ -142,6 +218,20 @@ function spliceArray(arr) {
  */
 function objectToArray(obj) {
 
+  let nArr    = [];
+  let keys    = [];
+  let values  = [];
+
+  keys   = Object.keys(obj);
+  values = Object.values(obj);
+
+  for (let i=0; i< keys.length; i++) {
+
+    nArr[i] = new Array( String(keys[i]), String(values[i]) );
+
+  }
+
+  return nArr;
 }
 
 /**
@@ -151,6 +241,18 @@ function objectToArray(obj) {
  */
 function arrayToObject(arr) {
 
+  let nObj = {};
+  let value;
+
+  for (let i=0; i < arr.length; i++){
+
+    if (isNaN(+arr[i][1])) 
+    {value = arr[i][1]} else {value = +arr[i][1]}
+
+    nObj[arr[i][0]] = value;
+  }
+
+  return nObj;
 }
 
 module.exports = {
