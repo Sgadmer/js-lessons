@@ -4,6 +4,7 @@
 1. [sum](https://github.com/zepster/js-lessons/blob/1-lesson/src/sum/index.js) - Функция сложения ```git checkout -b sum 1-lesson```
 2. [object](https://github.com/zepster/js-lessons/blob/2-lesson/src/object/index.js) - Задачи по объектам ```git checkout -b object 2-lesson```
 3. [array](https://github.com/zepster/js-lessons/blob/array-lesson/src/array/index.js) - Задачи по массивам ```git checkout -b array array-lesson```
+3. [toto-list](https://github.com/zepster/js-lessons/blob/todolist-lesson/src/todoList) - Список задач ```git checkout -b todo-list todolist-lesson```
 
 ### Как получить изменения к себе в проект?
 

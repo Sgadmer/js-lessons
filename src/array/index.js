@@ -213,7 +213,7 @@ function spliceArray(arr) {
  *
  * Пример
  * objectToArray({ name: 'Max',  age: 22, city: 'FR' })
- *  => [ [ 'name', 'Max' ], ['age' , '22'], [ 'city', 'Fr' ] ]
+ *  => [ [ 'name', 'Max' ], ['age' , '22'], [ 'city', 'FR' ] ]
  * @param obj
  */
 function objectToArray(obj) {
