@@ -1,0 +1,27 @@
+html{
+    cursor: pointer;
+}
+
+#todo-list {
+    width: 500px;
+    min-height: 100px;
+    background-color: #FFEFC4;
+    box-shadow:  #AEC4D0 10px 10px 10px 10px;
+}
+
+li[completed='true'] {
+    color: rgb(135, 160, 44);
+    text-decoration: line-through;
+}
+
+button[isActivated = 'true'] {
+    background-color:rgb(0, 217, 255);
+}
+
+#todo-list[filterMode='fin'] li[completed='false']{
+    display: none;
+}
+
+#todo-list[filterMode='work'] li[completed='true']{
+    display: none;
+}
