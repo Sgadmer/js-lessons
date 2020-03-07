@@ -3,13 +3,14 @@ html{
 }
 
 #todo-list {
-    width: 500px;
+    min-width: 500px;
     min-height: 100px;
+    max-width: 1080px;
     background-color: #FFEFC4;
     box-shadow:  #AEC4D0 10px 10px 10px 10px;
 }
 
-li[completed='true'] {
+li[completed='true']>span {
     color: rgb(135, 160, 44);
     text-decoration: line-through;
 }
@@ -24,4 +25,39 @@ button[isActivated = 'true'] {
 
 #todo-list[filterMode='work'] li[completed='true']{
     display: none;
+}
+
+#todo-list[filterMode='all'] button[filter='all']{
+    background-color:  rgb(166, 197, 255);
+}
+
+#todo-list[filterMode='work'] button[filter='work']{
+    background-color: rgb(166, 197, 255);
+}
+
+#todo-list[filterMode='fin'] button[filter='fin']{
+    background-color:  rgb(166, 197, 255);
+}
+
+#todo-list:not([filtermode]) button[filter='all']{
+    background-color:  rgb(166, 197, 255);
+}
+
+ol{
+    list-style-type: none;
+    padding-left:10px;
+    max-width: 1080px;
+    word-break:break-all;
+}
+
+li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li> button{
+    min-width: 100px;
+    min-height: 25px;
+    max-height: 25px;
 }

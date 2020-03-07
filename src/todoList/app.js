@@ -15,8 +15,20 @@ function onFormSubmit(event) {
   event.preventDefault();
   const value = inputElement.value.trim();
   if (!value) { return; }
-  const liElement = createElement('li', value);
-  liElement.setAttribute('completed',false);
+
+  const spanElement = createElement('span', value);
+  const deleteBTN = createElement('button', 'DELETE');
+  const liElement = createElement('li', '');
+  liElement
+    .addEventListener('click', olClick);
+
+  deleteBTN
+    .addEventListener('click', deleteFunc);
+
+  liElement.setAttribute('completed', false);
+
+  liElement.appendChild(spanElement);
+  liElement.appendChild(deleteBTN);
   olElement.appendChild(liElement);
   inputElement.value = '';
 }
@@ -36,7 +48,7 @@ formElement
   .addEventListener('submit', onFormSubmit);
 
 
-  
+
 //Кнопки
 
 const buttonFilter = document
@@ -53,27 +65,27 @@ function onFilterButtonClick(event) {
   let elem = event.target;
   let filterRule = elem.getAttribute('filter');
   todo.setAttribute('filterMode', filterRule);
-
-  buttonFilter.forEach((button) => {
-    button.setAttribute('isActivated', false);
-  })
-  elem.setAttribute('isActivated', true);
 }
 
 
 //Переключатель статуса задач
 
-olElement
-  .addEventListener('click', olClick);
 
 function olClick(event) {
-  let target = event.target;
-  if (!target.tagName == 'li') return;
+  let target = event.currentTarget;
+  let target2 = event.target;
 
-  if (target.getAttribute('completed')=='false') {
-    target.setAttribute('completed', true);
-  } else { target.setAttribute('completed',false); }
+  if (target2.innerText != 'DELETE') {
+    if (target.getAttribute('completed') == 'false') {
+      target.setAttribute('completed', true);
+    } else { target.setAttribute('completed', false); }
+  }
+
 }
 
 
+function deleteFunc (event){
 
+  const target = event.target;
+  
+}
