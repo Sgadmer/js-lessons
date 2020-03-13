@@ -6,6 +6,6 @@ movieXHR.onload = () =>{
     console.log(movieXHR);
 }
 
-movieXHR.send(null);
+movieXHR.send();
 
 
