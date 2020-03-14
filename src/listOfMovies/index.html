@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="style.css" rel="stylesheet">
 </head>
+
 <body>
 
-<div id="movies"></div>
+    <form id="movieFilters">
+        <input id="movieName" placeholder="Название фильма">
+        <input id="movieYear" placeholder="Год выхода фильма">
+        <button type="submit">Найти фильмы!</button>
+    </form>
 
-<script src="src/main.js"></script>
+    <div id="movies" hidden1></div>
+
+    <script src="src/main.js"></script>
 </body>
+
 </html>

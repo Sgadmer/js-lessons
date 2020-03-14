@@ -1,0 +1,12 @@
+#movieName{
+    min-width: 200px;
+}
+
+#movies{
+    opacity: 1;
+    transition: all 2s;
+}
+
+#movies[hidden1]{
+    opacity: 0;
+}
