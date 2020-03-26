@@ -4,64 +4,93 @@ let posterURL = 'http://www.omdbapi.com/?apikey=586fb65b';
 let movieFilters = document.querySelector('#movieFilters')
 movieFilters.addEventListener('submit', addPosterFilterInURL);
 
+let movies = document.querySelector('#movies');
+
+let load = document.querySelector('img[load]');
+console.log(load);
+
 function addPosterFilterInURL(event) {
     event.preventDefault();
     let movieNameFromInput = event.target.elements[0].value;
     let movieYearFromInput = event.target.elements[1].value
 
-    if (movieNameFromInput.length < 3 && movieYearFromInput < 1895) {
-        alert('Имя фильма должно содержать минимум 3 символа');
-        alert('Год фильма должен быть больше 1895');
+    if (movieNameFromInput.length == '') {
+        alert('Введите название фильма');
         return;
     }
 
-    else if (movieNameFromInput.length < 3) {
-        alert('Имя фильма должно содержать минимум 3 символа');
+    if (isNaN(movieYearFromInput)) {
+        alert('Введите год цифрами');
         return;
     }
 
-    else if (0 && movieYearFromInput < 1895) {
-        alert('Год фильма должен быть больше 1895');
-        return;
-    }
+    load.setAttribute('load', true);
     console.log('send request');
     loadMovies(movieNameFromInput, movieYearFromInput)
         .then(
             arrPoster => {
                 console.log('request complete');
+                deleteOldPosters();
+                let loadTimer;
                 arrPoster.forEach((element, index) => {
 
-                    let newPoster = document.createElement('img');
-                    newPoster.setAttribute('src', element.Poster);
-                    setTimeout(() => {
-                        movies.append(newPoster);    
-                    }, 1000 * (index + 1));
+                     loadTimer = 50 * (index + 1) ;
+
+                    if (element.Poster != "N/A") {
+                        let newPoster = document.createElement('img');
+                        newPoster.setAttribute('src', element.Poster);
+                        newPoster.setAttribute('hidden1', '');
+                        movies.append(newPoster);
+                        setTimeout(() => {
+                            newPoster.removeAttribute('hidden1', '');
+                        }, loadTimer);
+                    }
                 });
+                setTimeout(()=>{
+                    load.setAttribute('load', false);
+                }, loadTimer + 300)
+                
             },
-            error => console.log(error)
+            error => {
+                alert(error);
+                load.setAttribute('load', false);
+            }
         );
 
 }
 
-function loadMovies(movieNameFromInput, movieYearFromInput){
-return new Promise((resolve, reject) => {
+function loadMovies(movieNameFromInput, movieYearFromInput) {
+    return new Promise((resolve, reject) => {
 
-    let movieXHR = new XMLHttpRequest();
+        let movieXHR = new XMLHttpRequest();
 
-    let params = `&s=${movieNameFromInput}`
+        let paramsName = `&s=${movieNameFromInput}`;
+        let paramsYear = `&y=${movieYearFromInput}`;
 
-        movieXHR.open('GET', posterURL + params, true);
-    movieXHR.responseType = 'json';
+        if (movieYearFromInput == '') { movieXHR.open('GET', posterURL + paramsName, true); }
+        else { movieXHR.open('GET', posterURL + paramsName + paramsYear, true); }
 
-    movieXHR.onload = () => {
-        let arrPoster = movieXHR.response.Search;
-        resolve(arrPoster);
 
+        movieXHR.responseType = 'json';
+
+        movieXHR.onload = () => {
+            let arrPoster = movieXHR.response.Search;
+            resolve(arrPoster);
+
+        }
+
+        movieXHR.onerror = () => { reject('REJECT!!!'); }
+        movieXHR.send();
+    }
+    );
+}
+
+function deleteOldPosters() {
+
+
+    while (movies.firstChild) {
+        movies.removeChild(movies.firstChild);
     }
 
-    movieXHR.onerror = () => { reject('REJECT!!!'); }
-    movieXHR.send();
-}
-);
-}
 
+}
