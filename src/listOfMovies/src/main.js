@@ -5,9 +5,7 @@ let movieFilters = document.querySelector('#movieFilters')
 movieFilters.addEventListener('submit', addPosterFilterInURL);
 
 let movies = document.querySelector('#movies');
-
-let load = document.querySelector('img[load]');
-console.log(load);
+let load = document.querySelector('.loadDiv');
 
 function addPosterFilterInURL(event) {
     event.preventDefault();
@@ -24,7 +22,8 @@ function addPosterFilterInURL(event) {
         return;
     }
 
-    load.setAttribute('load', true);
+    load.style.display='block';
+
     console.log('send request');
     loadMovies(movieNameFromInput, movieYearFromInput)
         .then(
@@ -32,28 +31,39 @@ function addPosterFilterInURL(event) {
                 console.log('request complete');
                 deleteOldPosters();
                 let loadTimer;
-                arrPoster.forEach((element, index) => {
+                if(arrPoster ){
+                    arrPoster.forEach((element, index) => {
 
-                     loadTimer = 50 * (index + 1) ;
+                        loadTimer = 50 * (index + 1) ;
+   
+                       if (element.Poster != "N/A") {
+                           let newPoster = document.createElement('img');
+                           newPoster.setAttribute('src', element.Poster);
+                           newPoster.setAttribute('hidden1', '');
+                           movies.append(newPoster);
+                           setTimeout(() => {
+                               newPoster.removeAttribute('hidden1', '');
+                           }, loadTimer);
+                       }
+                   });
+                }
+                  else {
 
-                    if (element.Poster != "N/A") {
-                        let newPoster = document.createElement('img');
-                        newPoster.setAttribute('src', element.Poster);
-                        newPoster.setAttribute('hidden1', '');
-                        movies.append(newPoster);
-                        setTimeout(() => {
-                            newPoster.removeAttribute('hidden1', '');
-                        }, loadTimer);
-                    }
-                });
+                      let nothingToShow = document.createElement('p')
+                      .innerHTML= 'Упс! Ничего не найдено( Попробуйте еще раз';
+
+                      movies.append(nothingToShow);
+                      
+                  }
                 setTimeout(()=>{
-                    load.setAttribute('load', false);
-                }, loadTimer + 300)
-                
+                    load.style.display='none';   
+                }, loadTimer + 300)  
             },
             error => {
                 alert(error);
-                load.setAttribute('load', false);
+                setTimeout(()=>{
+                    load.style.display='none';   
+                }, loadTimer + 300)  
             }
         );
 
@@ -87,10 +97,7 @@ function loadMovies(movieNameFromInput, movieYearFromInput) {
 
 function deleteOldPosters() {
 
-
     while (movies.firstChild) {
         movies.removeChild(movies.firstChild);
     }
-
-
 }

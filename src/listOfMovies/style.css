@@ -1,3 +1,11 @@
+#movieFilters{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 30px;
+}
+
 #movieName{
     min-width: 200px;
 }
@@ -14,18 +22,38 @@
     opacity: 0;
 }
 
-#movieFilters>img[load='true']{
-    
-    opacity: 1;
-}
-#movieFilters>img[load='false']{
-    
-    opacity: 0;
+.loadDiv{
+    width:300px;
+    height: 30px;
+    border: 5px solid white;
+    background-color: royalblue;
+    border-radius: 20px;
+    box-shadow: rgb(66, 66, 66) 0px 3px 15px;
+    margin-left: 10px;
+    overflow: hidden;
+    display: none;
 }
 
-#movieFilters>img[load]{
-    height: 30px;
-    width: 30px;
-    position: relative;
-    top:10px;
+.loadLines{
+    width: 500px;
+    height: inherit;
+    background: repeating-linear-gradient(
+        45deg, rgba(255,255,255,.9) 0, rgba(255,255,255,.9) 0 5px, transparent 5px, transparent 10px
+         );
+
+         animation: loadPosterLines 1.5s linear infinite;
+}
+
+@keyframes loadPosterLines {
+    from {
+        margin-left: -150px;
+    }
+
+    50%{
+        opacity: 0;
+    }
+
+    to{
+        margin-left: -50px;
+    }
 }
